@@ -1,0 +1,46 @@
+﻿.required-indicator {
+	color: #f00;
+}
+
+.entity_info_row {
+    border-bottom: 1px solid #efefef;
+    min-height: 32px;
+}
+
+#btn_edit_card {
+    width: 100%;
+}
+
+#tou_wrapper {
+    background: #fff1a0;
+    border: 1px solid #f9dd34;
+}
+
+#thank_you_cta_callout {
+	margin-top: 12.75px;
+}
+
+#btn_thank_you_cta {
+	margin: 0;
+}
+
+#iframe_review {
+    height: 98%;
+    width: 98%;
+    min-height: 760px;
+}
+
+.chromeless #header, .chromeless #footer {
+    display: none;
+}
+
+@media only screen and (max-width: 767px)
+{
+    .entity_info_row_header {
+        display: none;
+    }
+
+	.text-right-small-only {
+        text-align: right;
+    }
+}

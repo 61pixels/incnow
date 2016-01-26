@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>IncNow | PAYRA Form</title>
+
+	<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+	<!-- Different version of Foundation is loaded first as (temporary) hack for tooltip and reveal in newer version -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/foundation.css" media="all" />
+	<link href="style.css?201509301222" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Archivo+Narrow:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="assets/css/style.css" media="all" />
+	<link rel="stylesheet" href="assets/css/template.css" media="all" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/modernizr.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+	<script src="plugins.js"></script>
+	<script>
+		var _baseapiurl = "https://secure.incnow.com/v1";
+		//var _baseapiurl = "http://localhost:49907";
+		var _staticdata = {
+			actions: [{ id: 0, key: "PayNow", label: "Pay Now" }, { id: 1, key: "PayLater", label: "Pay Later" }, { id: 2, key: "Cancel", label: "Cancel" }],
+			stateTypes: [{ id: 0, key: "a048000000KoC4CAAV", label: "DE", name: "Delaware" }, { id: 1, key: "a048000000KoC4EAAV", label: "FL", name: "Florida" }, { id: 2, key: "a048000000KoC4XAAV", label: "NV", name: "Nevada" }, { id: 3, key: "a048000000KoC45AAF", label: "AL", name: "Alabama" }, { id: 4, key: "a048000000KoC46AAF", label: "AK", name: "Alaska" }, { id: 5, key: "a048000000KoC47AAF", label: "AZ", name: "Arizona" }, { id: 6, key: "a048000000KoC48AAF", label: "AR", name: "Arkansas" }, { id: 7, key: "a048000000KoC49AAF", label: "CA", name: "California" }, { id: 8, key: "a048000000KoC4AAAV", label: "CO", name: "Colorado" }, { id: 9, key: "a048000000KoC4BAAV", label: "CT", name: "Connecticut" }, { id: 10, key: "a048000000KoC4DAAV", label: "DC", name: "District of Columbia" }, { id: 11, key: "a048000000KoC4FAAV", label: "GA", name: "Georgia" }, { id: 12, key: "a048000000KoC4GAAV", label: "HI", name: "Hawaii" }, { id: 13, key: "a048000000KoC4HAAV", label: "ID", name: "Idaho" }, { id: 14, key: "a048000000KoC4IAAV", label: "IL", name: "Illinois" }, { id: 15, key: "a048000000KoC4JAAV", label: "IN", name: "Indiana" }, { id: 16, key: "a048000000KoC4KAAV", label: "IA", name: "Iowa" }, { id: 17, key: "a048000000KoC4LAAV", label: "KS", name: "Kansas" }, { id: 18, key: "a048000000KoC4MAAV", label: "KY", name: "Kentucky" }, { id: 19, key: "a048000000KoC4NAAV", label: "LA", name: "Louisiana" }, { id: 20, key: "a048000000KoC4OAAV", label: "ME", name: "Maine" }, { id: 21, key: "a048000000KoC4PAAV", label: "MD", name: "Maryland" }, { id: 22, key: "a048000000KoC4QAAV", label: "MA", name: "Massachusetts" }, { id: 23, key: "a048000000KoC4RAAV", label: "MI", name: "Michigan" }, { id: 24, key: "a048000000KoC4SAAV", label: "MN", name: "Minnesota" }, { id: 25, key: "a048000000KoC4TAAV", label: "MS", name: "Mississippi" }, { id: 26, key: "a048000000KoC4UAAV", label: "MO", name: "Missouri" }, { id: 27, key: "a048000000KoC4VAAV", label: "MT", name: "Montana" }, { id: 28, key: "a048000000KoC4WAAV", label: "NE", name: "Nebraska" }, { id: 29, key: "a048000000KoC4YAAV", label: "NH", name: "New Hampshire" }, { id: 30, key: "a048000000KoC4ZAAV", label: "NJ", name: "New Jersey" }, { id: 31, key: "a048000000KoC4aAAF", label: "NM", name: "New Mexico" }, { id: 32, key: "a048000000KoC4bAAF", label: "NY", name: "New York" }, { id: 33, key: "a048000000KoC4cAAF", label: "NC", name: "North Carolina" }, { id: 34, key: "a048000000KoC4dAAF", label: "ND", name: "North Dakota" }, { id: 35, key: "a048000000KoC4eAAF", label: "OH", name: "Ohio" }, { id: 36, key: "a048000000KoC4fAAF", label: "OK", name: "Oklahoma" }, { id: 37, key: "a048000000KoC4gAAF", label: "OR", name: "Oregon" }, { id: 38, key: "a048000000KoC4hAAF", label: "PA", name: "Pennsylvania" }, { id: 39, key: "a048000000KoC4iAAF", label: "RI", name: "Rhode Island" }, { id: 40, key: "a048000000KoC4jAAF", label: "SC", name: "South Carolina" }, { id: 41, key: "a048000000KoC4kAAF", label: "SD", name: "South Dakota" }, { id: 42, key: "a048000000KoC4lAAF", label: "TN", name: "Tennessee" }, { id: 43, key: "a048000000KoC4mAAF", label: "TX", name: "Texas" }, { id: 44, key: "a048000000KoC4nAAF", label: "UT", name: "Utah" }, { id: 45, key: "a048000000KoC4oAAF", label: "VT", name: "Vermont" }, { id: 46, key: "a048000000KoC4pAAF", label: "VA", name: "Virginia" }, { id: 47, key: "a048000000KoC4qAAF", label: "WA", name: "Washington" }, { id: 48, key: "a048000000KoC4rAAF", label: "WV", name: "West Virginia" }, { id: 49, key: "a048000000KoC4sAAF", label: "WI", name: "Wisconsin" }, { id: 50, key: "a048000000KoC4tAAF", label: "WY", name: "Wyoming" }],
+			entityTypes: [{ id: 0, key: "LLC", label: "LLC", incnowCode: "LLC", superType: null, endings: ["LLC", "L.L.C.", "Limited Liability Company"] }, { id: 1, key: "Corporation", label: "Corporation", incnowCode: "Incorporation", superType: null, endings: ["Inc", "Inc.", "Incorporated", "Co", "Co.", "Company", "Corp", "Corp.", "Corporation", "Ltd", "Ltd.", "Limited"] }, { id: 2, key: "LP", label: "Limited Partnership", incnowCode: "LP", superType: null, endings: ["LP", "L.P.", "Limited Partnership"] }, { id: 3, key: "SeriesLLC", label: "Series LLC", incnowCode: "Series LLC", superType: 0, endings: ["LLC", "L.L.C.", "Limited Liability Company"] }, { id: 4, key: "NonProfitCorporation", label: "Non Profit Corporation", incnowCode: "Non-Profit", superType: 1, endings: ["Inc", "Inc.", "Incorporated", "Co", "Co.", "Company", "Corp", "Corp.", "Corporation", "Ltd", "Ltd.", "Limited", "Association", "Club", "Foundation", "Fund", "Institute", "Society", "Union", "Syndicate"] }],
+			salutationTypes: [{ id: 0, key: "Mr", label: "Mr." }, { id: 1, key: "Ms", label: "Ms." }, { id: 2, key: "Mrs", label: "Mrs." }, { id: 3, key: "Dr", label: "Dr." }, { id: 4, key: "Prof", label: "Prof." }],
+			sopAcceptedViaTypes: [{ id: 0, key: "ProcessServer", label: "Process Server" }, { id: 1, key: "DeputySheriff", label: "Deputy Sheriff" }, { id: 2, key: "CertifiedMail", label: "Certified Mail" }, { id: 3, key: "FedEx", label: "FedEx" }, { id: 4, key: "Other", label: "Other" }],
+			sopTypes: [{ id: 0, key: "SummonsAndComplaint", label: "Summons And Complaint" }, { id: 1, key: "Subpoena", label: "Subpoena" }, { id: 2, key: "Motion", label: "Motion" }, { id: 3, key: "Garnishment", label: "Garnishment" }, { id: 4, key: "Other", label: "Other" }],
+			stateEntityTitles: [{ id: 0, key: "Member", label: "Members" }, { id: 1, key: "Manager", label: "Managers" }, { id: 2, key: "Director", label: "Directors" }, { id: 3, key: "Stockholder", label: "Stockholders" }, { id: 4, key: "Series", label: "Series" }, { id: 5, key: "President", label: "President" }, { id: 6, key: "Treasurer", label: "Treasurer" }, { id: 7, key: "Secretary", label: "Secretary" }, { id: 8, key: "Partner", label: "Partner" }, { id: 9, key: "Agent", label: "Agent" }]
+		};
+
+		function apiType(types, value) {
+			if (value == null) return null;
+
+			var valueisstring = (typeof value == "string");
+
+			var arr = $.grep(_staticdata[types], function (item, i) {
+				var match = false;
+
+				if (!match && item.id != null) {
+					match = (item.id == value);
+				}
+				if (!match && item.key) {
+					match = valueisstring ? (item.key.toUpperCase() == value.toUpperCase()) : (item.key == value);
+				}
+				if (!match && item.label) {
+					match = valueisstring ? (item.label.toUpperCase() == value.toUpperCase()) : (item.label == value);
+				}
+				if (!match && item.name) {
+					match = valueisstring ? (item.name.toUpperCase() == value.toUpperCase()) : (item.name == value);
+				}
+
+				return match;
+			});
+
+
+			if (arr.length) return arr[0];
+			else return null;
+		};
+		
+		$(function() {
+		    var $req = $("<span>").text("*").addClass("required-indicator");		    $(":input[required]").each(function (i, item) {
+		        var $item = $(item);		        var id = $item.attr("id");		        if (id) {
+		            var $lbl = $("label[for='" + id + "']")		            if ($lbl.length) {
+		                $lbl.append($req.clone());
+		            };
+		        };
+		    });
+		});
+	</script>
+	<script src="script.js?201509301222"></script>
+</head>
+<body>
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PPMZHS" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript><script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PPMZHS');</script>
+	
+    <header id="header">
+        <div id="head-top">
+        </div>
+        <div class="row">
+            <div class="three columns">
+                <a href="https://www.incnow.com/" class="site-logo">
+                    <img src="assets/images/incnow-logor.png" alt="IncNow Agents and Corporations, Inc" />
+                </a>
+            </div>
+            <div class="nine columns">
+                <div class="head-contact">
+                    <h3>Please complete our online form. If you have any questions, we're here to help. <span>1.800.759.2248</span></h3>
+                </div>
+            </div>
+        </div>
+    </header>
+
+	<div class="container">
+		
+        <div class="row" id="default_pane">
+
+            <div class="six columns offset-by-three">
+
+                <h1>Pay Registered Agent Fees</h1>
+
+                <p>Registered Agent ("RA") fees are different from state taxes. Although we charge a flat annual fee to be your company's Registered Agent each year, state fees are still required to remain in good standing with the state.</p>
+
+                <div class="row">
+                    <div class="eight columns offset-by-two">
+                        <div class="flex-video">
+                            <iframe width="280" height="157" src="https://www.youtube.com/embed/y_b6wud8vm8?rel=0" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+		<div class="row" id="form_pane" style="display:none;">
+
+			<div class="twelve columns" id="form_wrapper">
+
+				<div id="invoices_section" data-requiredwrapper>
+                    <p>Prepay 2 years of Registered Agent fees 2017 and 2018 for $141.00, a $57 saving or prepay 1 year of Registered Agent Fees for 2017 for $81, an $18 saving.</p>
+					<h1>Your Entities</h1>
+					<div class="row">
+                        <div class="twelve columns" id="entities_table_wrapper">
+							<div class="row entity_info_row" style="display:none;" data-entitytemplate>
+								<div class="six columns">
+									<label data-entitylabel></label>
+								</div>
+								<div class="six columns">
+									<select data-entitycontrol>
+										<option data-productids='["01t80000003RQqTAAW","01t80000003RRCLAA4"]'></option>
+										<option data-productids='["01t80000003RRCLAA4"]'></option>
+										<option value="">(none)</option>
+									</select>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div id="contact_section">
+
+					<h1>Your Contact Info</h1>
+
+                    <div id="contact_readonly_wrapper">
+                        
+                        <div class="row">
+                            <div class="ten columns offset-by-two">
+                                <div id="contact_readonly"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+				</div>
+
+				<div id="payment_section">
+
+					<h1>Your Billing Info</h1>
+					<div class="form-horizontal">
+
+						<div class="row">
+							<label class="twelve columns control-label">
+								<input type="radio" name="payment_method" value="0" checked="checked" /> Pay by Credit Card
+							</label>
+						</div>
+
+						<div class="payment_type_wrapper" data-paymenttype="0">
+
+							<div class="row" id="payment_type_credit_card_wrapper" style="display: none;">
+								<label for="payment_card_control" class="two columns control-label">Card</label>
+								<div class="ten columns">
+									<select id="payment_card_control">
+										<option value="">(Add New Card)</option>
+									</select>
+								</div>
+							</div>
+
+                            <div id="btn_edit_card_wrapper" style="display: none;">
+                                <div class="row">
+                                    <div class="ten columns offset-by-two">
+                                        <button type="button" class="dup-button blue button" id="btn_edit_card">Edit Card</button>
+                                    </div>
+                                </div>
+                            </div>
+
+							<div id="payment_new_card_wrapper" data-requiredwrapper>
+								<div class="row">
+									<label for="payment_new_card_first_name_control" class="two columns control-label">Cardholder</label>
+									<div class="five columns">
+										<input type="text" id="payment_new_card_first_name_control" placeholder="First Name" required />
+									</div>
+									<div class="five columns">
+										<input type="text" id="payment_new_card_last_name_control" placeholder="Last Name" required />
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="payment_new_card_number_control" class="two columns control-label">Card Number</label>
+									<div class="ten columns">
+										<input type="text" id="payment_new_card_number_control" required />
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="payment_new_card_expiration-month_control" class="two columns control-label">Expiration</label>
+									<div class="five columns">
+										<select id="payment_new_card_expiration_month_control" required>
+											<option value="01">01 (Jan)</option>
+											<option value="02">02 (Feb)</option>
+											<option value="03">03 (Mar)</option>
+											<option value="04">04 (Apr)</option>
+											<option value="05">05 (May)</option>
+											<option value="06">06 (Jun)</option>
+											<option value="07">07 (Jul)</option>
+											<option value="08">08 (Aug)</option>
+											<option value="09">09 (Sep)</option>
+											<option value="10">10 (Oct)</option>
+											<option value="11">11 (Nov)</option>
+											<option value="12">12 (Dec)</option>
+										</select>
+									</div>
+									<div class="five columns">
+										<select id="payment_new_card_expiration_year_control" required>
+											<option value="2015">2015</option>
+											<option value="2016">2016</option>
+											<option value="2017">2017</option>
+											<option value="2018">2018</option>
+											<option value="2019">2019</option>
+											<option value="2020">2020</option>
+											<option value="2021">2021</option>
+											<option value="2022">2022</option>
+											<option value="2023">2023</option>
+											<option value="2024">2024</option>
+											<option value="2025">2025</option>
+											<option value="2026">2026</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="payment_new_card_cvv_control" class="two columns control-label">CVV</label>
+									<div class="four columns">
+										<input type="text" id="payment_new_card_cvv_control" required />
+									</div>
+									<label for="payment_new_card_postal_control" class="two columns control-label">Billing Zip</label>
+									<div class="four columns">
+										<input type="text" id="payment_new_card_postal_control" required />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="payment_type_wrapper" data-paymenttype="2">
+
+							<div class="row">
+								<div class="nine columns offset-by-two">
+									<p>Your payment will be processed once the check has been received and the funds have cleared.</p>
+									<p>Please make the check payable to <strong>Agents and Corporations, Inc.</strong> and include your phone number and the name of the company and mail it to us at:</p>
+									<address>
+										Agents and Corporations, Inc.<br />
+										PO Box 511<br />
+										Wilmington, Delaware 19899-0511<br />
+										United States
+									</address>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="payment_type_wrapper" data-paymenttype="3">
+
+							<div class="row">
+								<div class="nine columns offset-by-two">
+									<div data-productidpriceplaceholder="01t80000003QCyTAAW"></div>
+									<p>Your payment will be processed once the wire transfer has been received.</p>
+									<p>PLEASE EMAIL <a href="mailto:agents@incnow.com" target="_blank">AGENTS@INCNOW.COM</a> PRIOR TO SENDING THE WIRE AND PROVIDE US WITH A CONTACT NAME, NAME OF THE COMPANY, DATE THE WIRE IS BEING SENT AND THE SERVICE REQUESTED.</p>
+									<ul>
+										<li>HSBC Bank <a href="tel:+18009754722" target="_blank">800-975-4722</a> / <a href="tel:+13026524673" target="_blank">302-652-4673</a></li>
+										<li>Name on Account: Agents and Corporations, Inc.</li>
+										<li>Checking account #380003040</li>
+										<li>Routing # 031-101-185</li>
+										<li>International Routing # 021 00 1088</li>
+										<li>SWIFT ADDRESS - MRMDUS 33</li>
+										<li>1105 Market Street</li>
+										<li>Wilmington, DE 19801</li>
+										<li>PLEASE ADD YOUR NAME, INVOICE NUMBER, AND COMPANY NAME ON THE WIRE</li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+						
+						<div class="row">
+							<label class="six columns control-label">
+								<input type="radio" name="payment_method" value="2" /> Pay by Check (Via Mail)
+							</label>
+							<label class="six columns control-label">
+								<input type="radio" name="payment_method" value="3" data-productid="01t80000003QCyTAAW" /> Pay by Wire Transfer ($45 fee)
+							</label>
+						</div>
+						
+					</div>
+
+				</div>
+
+                <div id="checkout_section">
+
+                    <h1>Checkout</h1>
+                    <div class="row">
+                        <div class="four columns">
+                            <h3>Total: <span id="checkout_total"></span></h3>
+                        </div>
+                        <div class="four columns text-center">
+                            <div id="tou_wrapper">
+                                <label><input type="checkbox" id="tou_agree" /> Yes, I agree to the <a href="https://www.incnow.com/terms-of-use/" target="_blank">terms of use</a></label>
+                            </div>
+                        </div>
+                        <div class="four columns text-right">
+                            <button type="button" class="button" id="btn_checkout">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+
+			</div>
+
+		</div>
+		
+		<div class="row" id="thank_you_pane" style="display:none">
+			
+			<div class="twelve columns text-center">
+				
+				<h1><i class="fa fa-check-square-o fa-2x"></i> </h1>
+				
+				<h2></h2>
+				
+				<p>
+					Thank you for your payment, you will receive an email confirming your payment in the next few minutes.<br/>
+					
+				</p>
+				
+				<p>
+					<strong>Transaction ID:</strong> <span id="thank_you_transaction"></span><br/>
+					<strong>Amount:</strong> <span id="thank_you_amount"></span><br/>
+					<strong>Payment:</strong> <span id="thank_you_payment"></span><br/>
+				</p>
+				
+				<p>
+					Please email us at <a href="mailto:agents@incnow.com">agents@incnow.com</a> or call <a href="tel:+18007592248">800-759-2248</a> if you have any questions.
+				</p>
+								
+				<div class="row" style="display:none;">
+					<div class="eight columns offset-by-two">
+						<div class="panel callout">
+							<div class="row">
+								<div class="six columns text-left">
+									<h5 id="thank_you_cta_callout">Please Submit a 5 - Star Review</h5>
+								</div>
+								<div class="six columns text-right">
+									<buton class="dup-button blue button" id="btn_thank_you_cta">Go to TrustPilot 5-Star Review!</buton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+			
+		</div>
+		
+	</div>
+
+    <footer id="footer">
+        <div id="info">
+            <div class="row">
+                <div class="four columns">
+                    <h3>1.800.759.2248</h3>
+                </div>
+                <div class="four columns">
+                    <h3><a href="mailto:agents@incnow.com">agents@incnow.com</a></h3>
+                </div>
+                <div class="four columns">
+                    <ul id="social">
+                        <li><a id="email" href="mailto:agents@incnow.com">Email</a>
+                        <li><a id="facebook" href="https://www.facebook.com/incnow">Facebook</a>
+                        <li><a id="twitter" href="https://twitter.com/incnow">Twitter</a>
+                        <li><a id="google" href="https://plus.google.com/104313467933779056876/posts">Google+</a>
+                        <li><a id="youtube" href="http://www.youtube.com/user/incnow360">YouTube</a>
+                    </ul>
+                </div>
+            </div><!-- /row -->
+            <div class="row">
+                <div class="twelve columns">
+                    <hr />
+                </div>
+            </div><!-- /row -->
+            <div class="row">
+                <div class="block three columns">
+                    <h4>Start Your Business</h4>
+                    <ul>
+                        <li><a href="https://www.incnow.com/delaware-llc/">LLCs (Limited Liability Company)</a></li>
+                        <li><a href="https://www.incnow.com/incorporation-overview/">Corporations (S-Corp or C-Corp)</a></li>
+                        <li><a href="https://www.incnow.com/delaware-series-llc/">Series LLC</a></li>
+                        <li><a href="https://www.incnow.com/limited-partnership/">Limited Partnership</a></li>
+                        <li><a href="https://www.incnow.com/non-profit/">Non-Profits</a></li>
+                    </ul>
+                </div>
+                <div class="block three columns">
+                    <h4>Running Your Business</h4>
+                    <ul>
+                        <li><a href="https://www.incnow.com/incorppayfees-white.asp">Pay Invoices</a></li>
+                        <li><a href="https://www.defrantax.com/liLogin.asp?AgentNum=9030670">Pay Franchise Tax</a></li>
+                        <li><a href="https://www.incnow.com/good-standing/">Certificate of Good Standing</a></li>
+                        <li><a href="https://www.incnow.com/ein/">Employer Identification Number (EIN)</a></li>
+                        <li><a href="https://www.incnow.com/dba/">Doing Business As (DBA)</a></li>
+                    </ul>
+                </div>
+                <div class="block two columns">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.incnow.com/about-us/">About Us</a></li>
+                        <li><a href="https://www.incnow.com/tax-tips/">Tax Tips</a></li>
+                        <li><a href="https://www.incnow.com/faqs/">FAQ</a></li>
+                        <li><a href="https://www.incnow.com/blog/">Blog</a></li>
+                        <li><a href="https://www.incnow.com/states/">All States</a></li>
+                    </ul>
+                </div>
+                <div class="block four columns" id="four">
+                    <a id="srg" target="_blank" href="http://www.bbb.org/delaware/business-reviews/incorporating-companies/agents-and-corporations-inc-in-wilmington-de-21002064/#bbbonlineclick"><img src="assets/images/bbb.jpg" alt="A+ Rated by Better Business Bureau"></a>
+                    <a target="_blank" id="mcafee" href="https://www.mcafeesecure.com/RatingVerify?ref=www.incnow.com"><img src="//images.scanalert.com/meter/www.incnow.com/23.gif" alt="McAfee Secure sites help keep you safe from identity theft, credit card fraud, spyware, spam, viruses and online scams" oncontextmenu="alert('Copying Prohibited by Law - McAfee Secure is a Trademark of McAfee, Inc.'); return false;"></a>
+                </div>
+            </div>
+        </div><!-- /info -->
+
+        <div id="rights">
+            <div class="row">
+                <div class="twelve columns">
+                    <p>Agents and Corporations, Inc. 1201 Orange Street, Suite 600 Wilmington, Delaware 19801</p>
+                    <p>Phone: 302-575-0877 &nbsp; &nbsp; Fax: 302-575-1642</p>
+                    <br />
+                    <p>&copy; 1999-2015 Agents and Corporations, Inc. <a href="/privacy-statement/">Privacy Statement</a> | <a href="/terms-of-use/">Terms of Use</a></p>
+                    <p>Agents and Corporations, Inc. does not provide legal or tax advice. The information contained herein is general information and should not be relied upon for any purpose.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+	
+    <div class="reveal-modal tiny" data-reveal id="modal_loading" data-options="close_on_background_click:false">
+        <h2>Loading</h2>
+        <h1 class="text-center"><i class="fa fa-spinner fa-spin"></i></h1>
+        <h3 class="text-center" id="modal_loading_message"></h3>
+    </div>
+
+    <div class="reveal-modal tiny" data-reveal id="modal_error">
+        <h2>Error</h2>
+        <p class="text-center" id="modal_error_message"></p>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+    <div class="reveal-modal full" data-reveal id="modal_review">
+        <h2>How are we doing?</h2>
+        <div class="text-center">
+            <iframe id="iframe_review"></iframe>
+        </div>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+</body>
+</html>

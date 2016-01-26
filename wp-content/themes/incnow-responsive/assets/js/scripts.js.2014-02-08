@@ -1,0 +1,335 @@
+// Large Main Dropdown Navigation Menu
+(function($) { 
+
+	// For touch devices
+	$('.touch #main-nav-menu').children('li').each(function(){
+		
+		$(this).on('click',function(){		
+			if ($(this).hasClass('active')) {
+				$(this).removeClass('active');
+			} else {
+				$('.touch #main-nav-menu li').removeClass('active');
+				$(this).addClass('active');
+				event.stopPropagation();
+				
+				// closes menu when you click outside
+				$(document).on('click touchstart',function(){		
+					$('.touch #main-nav-menu li').removeClass('active');
+				});
+				
+				// yet you can click the links in the submenu
+				$('#main-nav-menu .main-nav-submenu').on('click touchstart',function(){		
+					event.stopPropagation();
+				});
+		    }
+		});
+
+	});
+	
+	// For desktops
+	$('.no-touch #main-nav-menu').children('li').each(function(){
+		
+		$(this).on('mouseenter',function(){		
+			$(this).addClass('active');
+		}).on('mouseleave',function(){
+			$(this).removeClass('active');
+		});
+
+	});
+	
+})(jQuery);
+
+
+
+// Accordion Elements
+(function($) { 
+                    
+       // Panels all collapsed by default on pages with body.page
+	   /* Temporarily disabled in favor of having them all open 
+	   $('body.page .accordion > dd').hide();
+	   
+       $('body.page .accordion dt a').click(function(){
+          if ($(this).hasClass('active')) {
+               $(this).removeClass('active');
+               $(this).parent().next().slideUp();
+          } else {
+               $('.accordion dt a').removeClass('active');
+               $(this).addClass('active');
+               $('.accordion dd').slideUp();
+               $(this).parent().next().slideDown();
+          }
+          return false;
+       });
+       */
+       
+       
+       // Panels all open by default on all pages
+       $('body .accordion dt a').addClass("active");
+       
+       $('body .accordion dt a').click(function(){
+          if ($(this).hasClass('active')) {
+               $(this).removeClass('active');
+               $(this).parent().next().slideUp();
+          } else {
+               $('.accordion dt a');
+               $(this).addClass('active');
+               $(this).parent().next().slideDown();
+          }
+          return false;
+       });
+        
+       
+})(jQuery);
+
+
+(function($) {
+	
+	// Tabs on Frontpage
+	$('#tabs .tab').hide();
+	$('#tabs .tab:first').show();
+	$('#tabs ul#big-tabs li:first').addClass('active');
+	 
+	$('#tabs ul#big-tabs li a').click(function(){
+		$('#tabs ul#big-tabs li').removeClass('active');
+		$(this).parent().addClass('active');
+		var currentTab = $(this).attr('href');
+		$('#tabs .tab').hide();
+		$(currentTab).show();
+		
+		//  Make sure to hide all the other more-info and pricing links
+        $('.more-info li').hide();
+        $('.pricing li').hide();
+		
+		// Show the more info link we want
+        $('.more-info li.' + $( currentTab + ' .selectpicker.home').val()).fadeIn( 'slow' );
+        
+        // Show the pricing link we want
+        $('.pricing li.' + $( currentTab + ' .selectpicker.home').val()).fadeIn( 'slow' ).on( 'click', function() {
+        	// alert( '#trigger-popup-compare-' + $( currentTab + ' .selectpicker.home').val() );
+        	$('#trigger-popup-compare-' + $( currentTab + ' .selectpicker.home').val()).magnificPopup('open'); // The 'open' forces it to happen within the 'on' event
+        });
+       		
+        
+		return false;
+	});
+	
+	// Homepage select menu changes URL of "Get Started" button.
+	$('.selectpicker.home').change(function(){		
+	
+		// Grab the data-href from the selected option
+		var newurl = $('option:selected', this).attr('data-href')
+		
+		// console.log( newurl );
+		
+		// Replace the URL of the "Get Started" link based on the selected option
+		$('a.get-started').attr('href', newurl );
+		
+		//  Make sure to hide all the other more-info and pricing links
+        $('.more-info li').hide();
+        $('.pricing li').hide();
+        
+        // Show the more info link we want
+        $('.more-info li.' + $(this).val()).fadeIn( 'slow' );
+        
+        // Show the pricing link we want
+        $('.pricing li.' + $(this).val()).fadeIn( 'slow' );
+        
+     
+    });
+    	    
+})(jQuery);
+
+
+
+// Ask a Question Form
+(function($) {
+
+	
+	// "I have a question about my current company." checkbox
+	$('form#ask-question #CompanyQuestion').click(function() {
+	    if( $(this).is(':checked')) {
+	        $("#CompanyQuestionExpanded").show();
+	    } else {
+	        $("#CompanyQuestionExpanded").hide();
+	    }
+	}); 
+
+
+		
+})(jQuery);
+
+
+
+// State Dropdown Menu
+(function($) {
+
+		function DropDown(el) {
+			this.dd = el;
+			this.initEvents();
+		}
+		DropDown.prototype = {
+			initEvents : function() {
+				var obj = this;
+	
+				obj.dd.on('click', function(event){
+					$(this).toggleClass('active');
+					event.stopPropagation();
+				});	
+			}
+		}
+	
+		$(function() {
+			var dd = new DropDown( jQuery('.dropdown-wrapper') );
+			$(document).click(function() {
+				$('.dropdown-wrapper').removeClass('active');
+			});
+		});
+
+})(jQuery);
+
+
+/*************************************
+* Popups, courtesy of Magnific Popup
+* Documentation: http://dimsemenov.com/plugins/magnific-popup/documentation.html
+*************************************/
+
+(function($) {
+
+	// Homepage Pricing Popups
+	$('#trigger-popup-compare-llc').magnificPopup();	
+	$('#trigger-popup-compare-corporation').magnificPopup();	
+	$('#trigger-popup-compare-seriesllc').magnificPopup();	
+	$('#trigger-popup-compare-nonprofitcorporation').magnificPopup();
+	$('#trigger-popup-compare-lp').magnificPopup();
+	
+	// "Why Delaware?" Popup
+	$('.trigger-popup-why-delaware').magnificPopup({ 
+		items: [
+	      {
+	        src: '/wp-content/themes/incnow/assets/images/lightbox/infographic01.jpg'
+	      },
+	      {
+	        src: '/wp-content/themes/incnow/assets/images/lightbox/infographic02.jpg',
+	      },
+	      {
+	        src: '/wp-content/themes/incnow/assets/images/lightbox/infographic03.jpg',
+	      },
+	      {
+	        src: $('<a href="https://secure.incnow.com/order/default.aspx?type=new"><img src="/wp-content/themes/incnow/assets/images/lightbox/infographic04.jpg" /></a>'), // Dynamically created element
+	        type: 'inline'
+	      }
+	    ],
+		type: 'image',
+		gallery:{
+	    	enabled:true
+		}
+	});
+	
+	
+	// Media popup at the bottom of pages
+	$('.popup-incnow-video').magnificPopup({ 
+	  type: 'iframe',
+	  iframe: {
+		  patterns: {
+		    youtube: {
+		      index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+		
+		      id: 'v=', // String that splits URL in a two parts, second part should be %id%
+		      // Or null - full URL will be returned
+		      // Or a function that should return %id%, for example:
+		      // id: function(url) { return 'parsed id'; } 
+		
+		      src: 'http://www.youtube.com/embed/%id%?autoplay=1' // URL that will be set as a source for iframe. 
+		    }
+		}		
+	}
+	  
+	});       
+    
+	$('.trigger-popup-basic-complete').magnificPopup();
+	
+	$('#trigger-popup-compare-states').magnificPopup();
+   
+	$('.trigger-popup-ask-question').magnificPopup();
+	
+	$('.trigger-popup-entity-name').magnificPopup();
+	
+	$('#trigger-popup-price-guarantee').magnificPopup();
+	
+	$('#trigger-popup-lead-acknowledge').magnificPopup(); 
+	
+})(jQuery);
+
+// Enable select menu styling
+(function($) {
+	$('.selectpicker').selectpicker();
+})(jQuery);
+
+
+var sendStateTopperLead;
+
+(function($) {
+	function getStateTopperContactInfo() {
+		var ci = {};
+		ci.salutationType = null;
+		ci.firstName = $("#pt-firstname").length ? $("#pt-firstname").val() : "";
+		ci.lastName = $("#pt-lastname").length ? $("#pt-lastname").val() : "";
+		ci.streetAddress = "";
+		ci.city = "";
+		ci.state = "";
+		ci.postal = "";
+		ci.country = "";
+		ci.email = $("#pt-email").val();
+		ci.phone = $("#pt-phone").val();
+
+		if (ci.firstName != "" && ci.lastName == "") {
+			ci.lastName = ci.firstName;
+			ci.firstName = "";
+		}
+
+		return ci;
+	}
+
+	function getStateTopperLead() {
+		var pt = $("#page-topper");
+		var lead = {};
+		lead.id = null;
+		lead.tempId = null;
+		lead.contactInfo = getStateTopperContactInfo();
+		lead.entityInfo = {name:"",stateType:"",type:"",id:"",active:"",incorporationDate:"",fileNumber:""};
+		lead.description = "Lead from " + document.URL + ". State Name: " + $("#pt-state-name").val() + 
+			". State Code: " + $("#pt-state-code").val() + ".";
+		lead.leadSourceType = "5";
+		return lead;
+	}
+
+	sendStateTopperLead = function() {
+		var lead = getStateTopperLead();
+
+		$.ajax({
+			url: "https://secure.incnow.com/v1/lead",
+//			url: "http://localhost:49907/lead",
+			data: JSON.stringify(lead),
+			success: function (msg) {
+				$("#trigger-popup-lead-acknowledge").trigger("click");
+			},
+			error: function () {
+				alert("Sorry, an error occurred in our server. Please try again later.");
+			}
+		});
+	}
+})(jQuery);
+
+
+jQuery(function () {
+	var $ = jQuery;
+	//$.ajax defaults
+	$.ajaxSetup({
+		type: "POST",
+		data: "{}",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		async: true,
+		cache: false,
+	});
+});

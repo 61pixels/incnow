@@ -1,0 +1,99 @@
+﻿.site-logo
+{
+    margin-top: 13px;
+}
+
+.site-logo img
+{
+    height: 50px;
+}
+
+li.service_item
+{
+  margin-bottom: 10px;
+  border-bottom: 1px dotted #ccc;
+  overflow: hidden;
+  list-style: none;
+}
+
+select.service_control
+{
+  width: 8%;
+  display: inline-block;
+}
+
+.service_price_label
+{
+	text-align: right;
+	float: right;
+}
+
+.service_name_label
+{
+	display: inline-block;
+	margin-left: 0.5rem;
+	margin-right: 1rem;
+	margin-bottom: 0;
+	vertical-align: baseline;
+}
+
+.service_selected {
+  background: #fff1a0;
+  border: 1px solid #f9dd34;
+}
+
+.required-indicator {
+	color: #f00;
+}
+
+.product_summary_item_include i {
+    color: #7daa00;
+}
+
+.product_summary_item_exclude {
+    color: #cf0000;
+    font-style: italic;
+}
+
+#tou_wrapper {
+	padding: 20px;
+	background: #fff1a0;
+	border: 1px solid #f9dd34;
+}
+
+#checkout_wrapper {
+	background: #efefef;
+	padding: 10px 20px 10px 20px;
+	margin-top: 10px;
+}
+
+#btn_checkout
+{
+	display: block;
+	width: 100%;
+	cursor: pointer;
+	margin-bottom: 0;
+}
+
+#new_order_callout
+{
+	margin-top: 12.75px;
+}
+
+#btn_new_order
+{
+	margin: 0;
+}
+
+@media only screen and (max-width: 767px)
+{
+	#summary_push
+	{
+		display: none;
+	}
+	
+	.site-logo img
+	{
+		height: 44px;
+	}
+}

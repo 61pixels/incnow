@@ -1,0 +1,186 @@
+// Large Main Dropdown Navigation Menu
+(function($) { 
+	var $menu = $('#main-nav-menu');
+
+	$menu.children('li').each(function(){
+		var $this = $(this);
+		var $span = $this.children('span');
+		var $submenu = $this.children('.main-nav-submenu');
+		$submenu.data('width',$submenu.width());
+		
+		$this.bind('mouseenter',function(){
+			$menu.find('.main-nav-submenu').stop(true,true).hide();
+			$this.find('.main-nav-submenu').slideDown(400).css({
+		        "left": 0,
+		        "height": $(document).height(),
+		        "opacity": 0
+		    }).animate({
+		    	"opacity": 1
+		    }, 500);
+		    $span.addClass('active');
+		}).bind('mouseleave',function(){
+			$this.find('.main-nav-submenu').stop(true,true).hide();
+			$span.removeClass('active');
+		});
+
+	});
+})(jQuery);
+
+
+
+// Accordion Elements
+(function($) { 
+                    
+       // Panels all collapsed by default on pages with body.page
+	   $('body.page .accordion > dd').hide();
+	   
+       $('body.page .accordion dt a').click(function(){
+          if ($(this).hasClass('active')) {
+               $(this).removeClass('active');
+               $(this).parent().next().slideUp();
+          } else {
+               $('.accordion dt a').removeClass('active');
+               $(this).addClass('active');
+               $('.accordion dd').slideUp();
+               $(this).parent().next().slideDown();
+          }
+          return false;
+       });
+       
+       
+       // Panels all open by default on pages with body.single-state
+       $('body.single-state .accordion dt a').addClass("active");
+       
+       $('body.single-state .accordion dt a').click(function(){
+          if ($(this).hasClass('active')) {
+               $(this).removeClass('active');
+               $(this).parent().next().slideUp();
+          } else {
+               $('.accordion dt a');
+               $(this).addClass('active');
+               $(this).parent().next().slideDown();
+          }
+          return false;
+       });
+        
+       
+})(jQuery);
+
+
+
+// Tabs on Frontpage
+(function($) {
+	$('#tabs .tab').hide();
+	$('#tabs .tab:first').show();
+	$('#tabs ul#big-tabs li:first').addClass('active');
+	 
+	$('#tabs ul#big-tabs li a').click(function(){
+	$('#tabs ul#big-tabs li').removeClass('active');
+	$(this).parent().addClass('active');
+	var currentTab = $(this).attr('href');
+	$('#tabs .tab').hide();
+	$(currentTab).show();
+	return false;
+	});
+})(jQuery);
+
+
+
+// Homepage select menu changes URL of "Get Started" button.
+(function($) {
+		
+	$('.selectpicker.home').change(function(){		
+	
+		// Grab the data-href from the selected option
+		var newurl = $('option:selected', this).attr('data-href')
+		
+		// console.log( newurl );
+		
+		// Currently targets all of them, versus the one within the same div 
+		$('a#get-started').attr('href', newurl );
+			
+        $('.more-info li').hide();
+        $('.more-info li.' + $(this).val()).fadeIn( 'slow' );
+    });
+	    
+})(jQuery);
+
+
+
+// State Dropdown Menu
+(function($) {
+
+		function DropDown(el) {
+			this.dd = el;
+			this.initEvents();
+		}
+		DropDown.prototype = {
+			initEvents : function() {
+				var obj = this;
+	
+				obj.dd.on('click', function(event){
+					$(this).toggleClass('active');
+					event.stopPropagation();
+				});	
+			}
+		}
+	
+		$(function() {
+			var dd = new DropDown( jQuery('.dropdown-wrapper') );
+			$(document).click(function() {
+				$('.dropdown-wrapper').removeClass('active');
+			});
+		});
+
+})(jQuery);
+
+
+
+//  Modal Window
+(function($) {
+    $('.modalLink').modal({
+        trigger: '.modalLink',          // id or class of link or button to trigger modal
+        olay:'div.overlay',             // id or class of overlay
+        modals:'div.modal',             // id or class of modal
+        animationEffect: 'fadeIn',   // overlay effect | slideDown or fadeIn | default=fadeIn
+        animationSpeed: 400,            // speed of overlay in milliseconds | default=400
+        moveModalSpeed: 'slow',         // speed of modal movement when window is resized | slow or fast | default=false
+        background: '000000',           // hexidecimal color code - DONT USE #
+        opacity: 0.7,                   // opacity of modal |  0 - 1 | default = 0.8
+        openOnLoad: false,              // open modal on page load | true or false | default=false
+        docClose: true,                 // click document to close | true or false | default=true    
+        closeByEscape: true,            // close modal by escape key | true or false | default=true
+        moveOnScroll: true,             // move modal when window is scrolled | true or false | default=false
+        resizeWindow: true,             // move modal when window is resized | true or false | default=false
+        // video: 'http://player.vimeo.com/video/2355334?color=eb5a3d',    // enter the url of the video
+        // videoClass:'video',             // class of video element(s)
+        close:'.closeBtn'               // id or class of close button
+    });
+    
+        $('.modalLink.compare').modal({
+        trigger: '.modalLink.compare',          // id or class of link or button to trigger modal
+        olay:'div.overlay.compare',             // id or class of overlay
+        modals:'div.modal.compare',             // id or class of modal
+        animationEffect: 'fadeIn',   // overlay effect | slideDown or fadeIn | default=fadeIn
+        animationSpeed: 400,            // speed of overlay in milliseconds | default=400
+        moveModalSpeed: 'slow',         // speed of modal movement when window is resized | slow or fast | default=false
+        background: '000000',           // hexidecimal color code - DONT USE #
+        opacity: 0.7,                   // opacity of modal |  0 - 1 | default = 0.8
+        openOnLoad: false,              // open modal on page load | true or false | default=false
+        docClose: true,                 // click document to close | true or false | default=true    
+        closeByEscape: true,            // close modal by escape key | true or false | default=true
+        moveOnScroll: true,             // move modal when window is scrolled | true or false | default=false
+        resizeWindow: true,             // move modal when window is resized | true or false | default=false
+        // video: 'http://player.vimeo.com/video/2355334?color=eb5a3d',    // enter the url of the video
+        // videoClass:'video',             // class of video element(s)
+        close:'.closeBtn'               // id or class of close button
+    });
+    
+})(jQuery);
+
+
+
+// Enable select menu styling
+(function($) {
+	$('.selectpicker').selectpicker();
+})(jQuery);
